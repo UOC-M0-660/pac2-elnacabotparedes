@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
 import edu.uoc.pac2.data.BooksInteractor
+import edu.uoc.pac2.data.FirestoreBookData
 
 /**
  * An activity representing a list of Books.
@@ -31,6 +33,10 @@ class BookListActivity : AppCompatActivity() {
         getBooks()
 
         // TODO: Add books data to Firestore [Use once for new projects with empty Firestore Database]
+        val db = FirebaseFirestore.getInstance()
+
+            FirestoreBookData.addBooksDataToFirestoreDatabase()
+
     }
 
     // Init Top Toolbar

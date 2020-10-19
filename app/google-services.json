@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "163317209479",
+    "firebase_url": "https://pac2-elnacabotparedes.firebaseio.com",
+    "project_id": "pac2-elnacabotparedes",
+    "storage_bucket": "pac2-elnacabotparedes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163317209479:android:b5257856ebe49ed0975b22",
+        "android_client_info": {
+          "package_name": "edu.uoc.pac2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163317209479-r5nhkpi6ns3b8fjgb08obkc5iktg1js0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDweMDZArjIfArP7AwwW3ZDBzaVCSwVr7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163317209479-r5nhkpi6ns3b8fjgb08obkc5iktg1js0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
