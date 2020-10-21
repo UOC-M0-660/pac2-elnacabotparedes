@@ -1,6 +1,7 @@
 package edu.uoc.pac2
 
 import android.app.Application
+import androidx.room.Room
 import edu.uoc.pac2.data.*
 
 /**
@@ -12,8 +13,15 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         // TODO: Init Room Database
+        val db = Room.databaseBuilder(this, ApplicationDatabase::class.java, "book-db")
+                .allowMainThreadQueries()
+                .build()
+
+
         // TODO: Init BooksInteractor
+        booksInteractor = BooksInteractor(db.bookDao())
     }
 
     fun getBooksInteractor(): BooksInteractor {

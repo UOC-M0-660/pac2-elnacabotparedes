@@ -1,15 +1,18 @@
 package edu.uoc.pac2.ui
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
+import edu.uoc.pac2.data.ApplicationDatabase
 import edu.uoc.pac2.data.Book
 import edu.uoc.pac2.data.BooksInteractor
 import edu.uoc.pac2.data.FirestoreBookData
@@ -72,11 +75,15 @@ class BookListActivity : AppCompatActivity() {
                     return@addSnapshotListener
                 }
                 if (snapshot != null ) {
-                    Log.d("TAG", "Current data: ${snapshot.documents.size}")
+
 
                     val books: List<Book> = snapshot.mapNotNull { it.toObject(Book::class.java) }
 
                     adapter.setBooks(books)
+
+                    val interactor = (applicationContext as MyApplication).getBooksInteractor()
+                    interactor.saveBooks(books)
+
 
 
                 } else {
