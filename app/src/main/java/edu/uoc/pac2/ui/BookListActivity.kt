@@ -73,6 +73,12 @@ class BookListActivity : AppCompatActivity() {
                 }
                 if (snapshot != null ) {
                     Log.d("TAG", "Current data: ${snapshot.documents.size}")
+
+                    val books: List<Book> = snapshot.mapNotNull { it.toObject(Book::class.java) }
+
+                    adapter.setBooks(books)
+
+
                 } else {
                     Log.d("TAG", "Current data: null")
                 }
