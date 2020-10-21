@@ -1,11 +1,13 @@
 package edu.uoc.pac2.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
@@ -21,6 +23,8 @@ class BookListActivity : AppCompatActivity() {
 
     private lateinit var adapter: BooksListAdapter
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_list)
@@ -29,13 +33,11 @@ class BookListActivity : AppCompatActivity() {
         initToolbar()
         initRecyclerView()
 
+        // TODO: Add books data to Firestore [Use once for new projects with empty Firestore Database]
+        FirestoreBookData.addBooksDataToFirestoreDatabase()
+
         // Get Books
         getBooks()
-
-        // TODO: Add books data to Firestore [Use once for new projects with empty Firestore Database]
-        val db = FirebaseFirestore.getInstance()
-
-            FirestoreBookData.addBooksDataToFirestoreDatabase()
 
     }
 
@@ -59,6 +61,22 @@ class BookListActivity : AppCompatActivity() {
 
     // TODO: Get Books and Update UI
     private fun getBooks() {
+
+        val db = FirebaseFirestore.getInstance()
+        db.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
+
+        db.collection("books")
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.w("TAG", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+                if (snapshot != null ) {
+                    Log.d("TAG", "Current data: ${snapshot.documents.size}")
+                } else {
+                    Log.d("TAG", "Current data: null")
+                }
+            }
 
     }
 
