@@ -65,31 +65,47 @@ class BookListActivity : AppCompatActivity() {
     // TODO: Get Books and Update UI
     private fun getBooks() {
 
-        val db = FirebaseFirestore.getInstance()
-        db.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
+        //No internet
+        if( !(applicationContext as MyApplication).hasInternetConnection())
+        {
+            val interactor = (applicationContext as MyApplication).getBooksInteractor()
+            val books = interactor.getAllBooks()
 
-        db.collection("books")
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Log.w("TAG", "Listen failed.", e)
-                    return@addSnapshotListener
-                }
-                if (snapshot != null ) {
+            adapter.setBooks(books)
+            Log.d("TAG", "DB")
+        }
+        else
+        {
+            val db = FirebaseFirestore.getInstance()
+            db.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
+
+            db.collection("books")
+                    .addSnapshotListener { snapshot, e ->
+                        if (e != null) {
+                            Log.w("TAG", "Listen failed.", e)
+                            return@addSnapshotListener
+                        }
+                        if (snapshot != null ) {
 
 
-                    val books: List<Book> = snapshot.mapNotNull { it.toObject(Book::class.java) }
+                            val books: List<Book> = snapshot.mapNotNull { it.toObject(Book::class.java) }
 
-                    adapter.setBooks(books)
+                            adapter.setBooks(books)
 
-                    val interactor = (applicationContext as MyApplication).getBooksInteractor()
-                    interactor.saveBooks(books)
+                            val interactor = (applicationContext as MyApplication).getBooksInteractor()
+                            interactor.saveBooks(books)
+
+                        } else {
+                            Log.d("TAG", "Current data: null")
+                        }
+                    }
+        }
 
 
 
-                } else {
-                    Log.d("TAG", "Current data: null")
-                }
-            }
+
+
+
 
     }
 

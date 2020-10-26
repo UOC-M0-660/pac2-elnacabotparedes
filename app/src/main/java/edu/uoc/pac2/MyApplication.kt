@@ -1,6 +1,10 @@
 package edu.uoc.pac2
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkInfo
 import androidx.room.Room
 import edu.uoc.pac2.data.*
 
@@ -30,6 +34,14 @@ class MyApplication : Application() {
 
     fun hasInternetConnection(): Boolean {
         // TODO: Add Internet Check logic.
-        return true
+
+        var internet: Boolean = false
+
+        val connectivityManager: ConnectivityManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+
+        internet = activeNetwork?.isConnectedOrConnecting == true
+
+        return internet
     }
 }

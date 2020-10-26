@@ -3,6 +3,7 @@ package edu.uoc.pac2.data
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 /**
  * Book Dao (Data Access Object) for accessing Book Table functions.
@@ -21,4 +22,7 @@ interface BookDao {
 
     @Insert
     fun saveBook(book: Book): Long
+
+    @Update
+    fun updateBook(book: Book)
 }
