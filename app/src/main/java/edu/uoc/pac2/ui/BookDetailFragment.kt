@@ -39,11 +39,9 @@ class BookDetailFragment : Fragment() {
         val interactor = (activity!!.applicationContext as MyApplication).getBooksInteractor()
         val book = interactor.getBookById(arguments!!.getInt(ARG_ITEM_ID))
 
-        Picasso.get().load(book!!.urlImage).into(imageBook)
-
-        author.text = book.author
-        date.text = book.publicationDate
-        description.text = book.description
+        author.text = book!!.author
+        date.text = book!!.publicationDate
+        description.text = book!!.description
 
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.squareup.picasso.Picasso
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import kotlinx.android.synthetic.main.activity_book_detail.*
@@ -35,6 +36,7 @@ class BookDetailActivity : AppCompatActivity() {
             val book = interactor.getBookById(itemID)
 
             toolbarTitle.text = book!!.title
+            Picasso.get().load(book!!.urlImage).into(imageBackground)
 
             setSupportActionBar(toolbar);
             getSupportActionBar()?.setDisplayShowTitleEnabled(false);

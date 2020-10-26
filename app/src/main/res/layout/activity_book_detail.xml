@@ -7,32 +7,49 @@ android:layout_height="match_parent"
 tools:context=".ui.BookDetailActivity"
     >
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@color/colorPrimaryDark"
+        android:id="@+id/toolbarPanel"
         >
-        <TextView
-            android:id="@+id/toolbarTitle"
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tile"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="30dp"
-            android:textColor="@color/white"
-            android:textSize="25sp"
+            android:scaleType="centerCrop"
+            android:id="@+id/imageBackground"
             />
 
-    </androidx.appcompat.widget.Toolbar>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tile"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="30dp"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                />
+        </androidx.appcompat.widget.Toolbar>
+
+
+
+    </RelativeLayout>
+
+
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:padding="10dp"
         android:id="@+id/information"
-        app:layout_anchor="@id/toolbar"
+        app:layout_anchor="@id/toolbarPanel"
         app:layout_anchorGravity="bottom"
         android:layout_marginTop="180dp"
         >
@@ -54,7 +71,7 @@ tools:context=".ui.BookDetailActivity"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:src="@drawable/ic_baseline_message_24"
-        app:layout_anchor="@id/toolbar"
+        app:layout_anchor="@id/toolbarPanel"
         android:backgroundTint="@color/colorAccent"
         app:borderWidth="0dp"
         android:clickable="true"
