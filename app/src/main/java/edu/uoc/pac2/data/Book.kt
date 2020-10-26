@@ -12,7 +12,7 @@ import java.io.FileDescriptor
 @Entity(tableName = "book")
 data class Book(
         @ColumnInfo(name = "author") val author: String? = null,
-        @ColumnInfo(name = "description")val descriptor: String? = null,
+        @ColumnInfo(name = "description")val description: String? = null,
         @ColumnInfo(name = "publication_date") val publicationDate:String? = null,
         @ColumnInfo(name = "title") val title: String? = null,
         @PrimaryKey val uid: Int? = null,

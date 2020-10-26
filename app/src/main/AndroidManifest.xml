@@ -22,7 +22,8 @@
         <activity
             android:name="edu.uoc.pac2.ui.BookDetailActivity"
             android:label="@string/title_book_detail"
-            android:parentActivityName="edu.uoc.pac2.ui.BookListActivity"/>
+            android:parentActivityName="edu.uoc.pac2.ui.BookListActivity"
+            android:theme="@style/AppTheme2"/>
     </application>
 
 </manifest>

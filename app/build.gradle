@@ -53,5 +53,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // TODO: Add Image Loading Library
+    implementation 'com.squareup.picasso:picasso:2.71828'
     // Other Libraries
 }

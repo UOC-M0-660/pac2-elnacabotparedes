@@ -3,7 +3,9 @@ package edu.uoc.pac2.ui
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
+import kotlinx.android.synthetic.main.activity_book_detail.*
 
 /**
  * An activity representing a single Book detail screen.
@@ -27,6 +29,16 @@ class BookDetailActivity : AppCompatActivity() {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             val itemID = intent.getIntExtra(BookDetailFragment.ARG_ITEM_ID, -1)
+
+            val interactor = (applicationContext as MyApplication).getBooksInteractor()
+            val book = interactor.getBookById(itemID)
+
+            toolbarTitle.text = book!!.title
+
+            setSupportActionBar(toolbar);
+            getSupportActionBar()?.setDisplayShowTitleEnabled(false);
+            getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+
             val fragment = BookDetailFragment.newInstance(itemID)
             supportFragmentManager.beginTransaction()
                     .add(R.id.frameLayout, fragment)
