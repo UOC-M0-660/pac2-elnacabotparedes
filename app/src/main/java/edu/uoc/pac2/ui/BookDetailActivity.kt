@@ -1,5 +1,6 @@
 package edu.uoc.pac2.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -43,6 +44,22 @@ class BookDetailActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                     .add(R.id.frameLayout, fragment)
                     .commit()
+
+            search.setOnClickListener{
+
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TITLE, book.title)
+                    putExtra(Intent.EXTRA_TEXT, book.urlImage)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+
+            }
+
+
         }
     }
 
