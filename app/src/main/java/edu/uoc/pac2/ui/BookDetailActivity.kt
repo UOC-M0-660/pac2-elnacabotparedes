@@ -2,6 +2,7 @@ package edu.uoc.pac2.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
@@ -67,12 +68,14 @@ class BookDetailActivity : AppCompatActivity() {
 
     // TODO: Override finish animation for actionbar back arrow
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
+        onBackPressed()
+        return true
     }
 
     // TODO: Override finish animation for phone back button
     override fun onBackPressed() {
         super.onBackPressed()
+        overridePendingTransition(R.anim.translate_out_bottom, R.anim.translate_out_top)
     }
 
 }

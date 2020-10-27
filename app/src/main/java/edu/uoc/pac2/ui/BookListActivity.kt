@@ -1,20 +1,16 @@
 package edu.uoc.pac2.ui
 
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
-import edu.uoc.pac2.data.ApplicationDatabase
 import edu.uoc.pac2.data.Book
-import edu.uoc.pac2.data.BooksInteractor
 import edu.uoc.pac2.data.FirestoreBookData
 
 /**
@@ -58,7 +54,7 @@ class BookListActivity : AppCompatActivity() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         // Init Adapter
-        adapter = BooksListAdapter(emptyList())
+        adapter = BooksListAdapter(emptyList(), this)
         recyclerView.adapter = adapter
     }
 
