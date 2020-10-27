@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import edu.uoc.pac2.MyApplication
@@ -22,6 +26,7 @@ class BookListActivity : AppCompatActivity() {
 
     private lateinit var adapter: BooksListAdapter
 
+    lateinit var mAdView : AdView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +36,13 @@ class BookListActivity : AppCompatActivity() {
         // Init UI
         initToolbar()
         initRecyclerView()
+
+        MobileAds.initialize(this) {}
+
+        mAdView = findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+
 
         // TODO: Add books data to Firestore [Use once for new projects with empty Firestore Database]
         FirestoreBookData.addBooksDataToFirestoreDatabase()
@@ -64,11 +76,7 @@ class BookListActivity : AppCompatActivity() {
         //No internet
         if( !(applicationContext as MyApplication).hasInternetConnection())
         {
-            val interactor = (applicationContext as MyApplication).getBooksInteractor()
-            val books = interactor.getAllBooks()
-
-            adapter.setBooks(books)
-            Log.d("TAG", "DB")
+            loadBooksFromLocalDb()
         }
         else
         {
@@ -83,13 +91,11 @@ class BookListActivity : AppCompatActivity() {
                         }
                         if (snapshot != null ) {
 
-
                             val books: List<Book> = snapshot.mapNotNull { it.toObject(Book::class.java) }
 
                             adapter.setBooks(books)
 
-                            val interactor = (applicationContext as MyApplication).getBooksInteractor()
-                            interactor.saveBooks(books)
+                            saveBooksToLocalDatabase(books)
 
                         } else {
                             Log.d("TAG", "Current data: null")
@@ -97,21 +103,18 @@ class BookListActivity : AppCompatActivity() {
                     }
         }
 
-
-
-
-
-
-
     }
 
     // TODO: Load Books from Room
     private fun loadBooksFromLocalDb() {
-        throw NotImplementedError()
-    }
+        val interactor = (applicationContext as MyApplication).getBooksInteractor()
+        val books = interactor.getAllBooks()
+
+        adapter.setBooks(books)    }
 
     // TODO: Save Books to Local Storage
     private fun saveBooksToLocalDatabase(books: List<Book>) {
-        throw NotImplementedError()
+        val interactor = (applicationContext as MyApplication).getBooksInteractor()
+        interactor.saveBooks(books)
     }
 }
