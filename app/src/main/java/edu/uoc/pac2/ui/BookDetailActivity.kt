@@ -33,12 +33,15 @@ class BookDetailActivity : AppCompatActivity() {
             // using a fragment transaction.
             val itemID = intent.getIntExtra(BookDetailFragment.ARG_ITEM_ID, -1)
 
+            //Class Book interactor to get all the books in the DB
             val interactor = (applicationContext as MyApplication).getBooksInteractor()
             val book = interactor.getBookById(itemID)
 
+            //Change the title and the image of the toolbar
             toolbarTitle.text = book!!.title
             Picasso.get().load(book!!.urlImage).into(imageBackground)
 
+            //Get the toolbar and change the title and include the home button
             setSupportActionBar(toolbar);
             getSupportActionBar()?.setDisplayShowTitleEnabled(false);
             getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
@@ -48,6 +51,7 @@ class BookDetailActivity : AppCompatActivity() {
                     .add(R.id.frameLayout, fragment)
                     .commit()
 
+            //Make the action for the floating button  -> Pass the image and the title to the action SEND
             search.setOnClickListener{
 
                 val sendIntent: Intent = Intent().apply {
@@ -59,7 +63,6 @@ class BookDetailActivity : AppCompatActivity() {
 
                 val shareIntent = Intent.createChooser(sendIntent, null)
                 startActivity(shareIntent)
-
             }
 
 

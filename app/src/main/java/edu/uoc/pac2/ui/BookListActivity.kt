@@ -37,8 +37,10 @@ class BookListActivity : AppCompatActivity() {
         initToolbar()
         initRecyclerView()
 
+        //Init the Google Ad
         MobileAds.initialize(this) {}
 
+        //Load the ad
         mAdView = findViewById(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
@@ -73,13 +75,14 @@ class BookListActivity : AppCompatActivity() {
     // TODO: Get Books and Update UI
     private fun getBooks() {
 
-        //No internet
+        //If no internet then load from DB
         if( !(applicationContext as MyApplication).hasInternetConnection())
         {
             loadBooksFromLocalDb()
         }
         else
         {
+            //If internet get it from Firebase
             val db = FirebaseFirestore.getInstance()
             db.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
 
@@ -93,8 +96,10 @@ class BookListActivity : AppCompatActivity() {
 
                             val books: List<Book> = snapshot.mapNotNull { it.toObject(Book::class.java) }
 
+                            //Pass the new data to the adapter
                             adapter.setBooks(books)
 
+                            //Save the new data to the db
                             saveBooksToLocalDatabase(books)
 
                         } else {

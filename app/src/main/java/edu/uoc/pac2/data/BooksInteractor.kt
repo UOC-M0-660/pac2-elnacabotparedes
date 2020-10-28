@@ -36,6 +36,7 @@ class BooksInteractor(private val bookDao: BookDao) {
 
             for(list: Book in listBook)
             {
+                //If the book exist Update in the DB
                 if(book.uid == list.uid)
                 {
                     Log.d("TAG", "EXIST ELEMENT")
@@ -44,7 +45,7 @@ class BooksInteractor(private val bookDao: BookDao) {
                 }
             }
 
-            //No exist then insert
+            //If the book doesn't exist not update and added to the db
             if( !exist)
             {
                 Log.d("TAG", "NO EXIST")
@@ -58,6 +59,7 @@ class BooksInteractor(private val bookDao: BookDao) {
         return bookDao.getBookById(id)
     }
 
+    //Update the book in the db
     fun updateBook(book: Book)
     {
         bookDao.updateBook(book)

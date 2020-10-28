@@ -34,11 +34,11 @@ class BookDetailFragment : Fragment() {
     private fun loadBook() {
         //throw NotImplementedError()
 
-        Log.d("TAG", arguments!!.getInt(ARG_ITEM_ID).toString())
-
+        //Get the book interactor and all the books from the db
         val interactor = (activity!!.applicationContext as MyApplication).getBooksInteractor()
         val book = interactor.getBookById(arguments!!.getInt(ARG_ITEM_ID))
 
+        //Change the information in the fragment
         author.text = book!!.author
         date.text = book!!.publicationDate
         description.text = book!!.description

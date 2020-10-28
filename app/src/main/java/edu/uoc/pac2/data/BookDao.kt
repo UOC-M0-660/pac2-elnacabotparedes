@@ -23,6 +23,7 @@ interface BookDao {
     @Insert
     fun saveBook(book: Book): Long
 
+    //New function to update the book
     @Update
     fun updateBook(book: Book)
 }
