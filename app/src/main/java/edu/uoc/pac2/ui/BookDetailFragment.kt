@@ -1,12 +1,16 @@
 package edu.uoc.pac2.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.squareup.picasso.Picasso
+import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
+import kotlinx.android.synthetic.main.fragment_book_detail.*
 
 /**
  * A fragment representing a single Book detail screen.
@@ -28,7 +32,17 @@ class BookDetailFragment : Fragment() {
 
     // TODO: Get Book for the given {@param ARG_ITEM_ID} Book id
     private fun loadBook() {
-        throw NotImplementedError()
+        //throw NotImplementedError()
+
+        //Get the book interactor and all the books from the db
+        val interactor = (activity!!.applicationContext as MyApplication).getBooksInteractor()
+        val book = interactor.getBookById(arguments!!.getInt(ARG_ITEM_ID))
+
+        //Change the information in the fragment
+        author.text = book!!.author
+        date.text = book!!.publicationDate
+        description.text = book!!.description
+
     }
 
     // TODO: Init UI with book details

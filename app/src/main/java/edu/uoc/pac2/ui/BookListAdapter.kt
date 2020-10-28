@@ -1,6 +1,6 @@
 package edu.uoc.pac2.ui
 
-import android.app.ActivityOptions
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +14,7 @@ import edu.uoc.pac2.data.Book
  * Adapter for a list of Books.
  */
 
-class BooksListAdapter(private var books: List<Book>) : RecyclerView.Adapter<BooksListAdapter.ViewHolder>() {
+class BooksListAdapter(private var books: List<Book>, val activity: Activity) : RecyclerView.Adapter<BooksListAdapter.ViewHolder>() {
 
     private val evenViewType = 0
     private val oddViewType = 1
@@ -62,6 +62,14 @@ class BooksListAdapter(private var books: List<Book>) : RecyclerView.Adapter<Boo
         holder.authorView.text = book.author
 
         // TODO: Set View Click Listener
+        holder.view.setOnClickListener{
+            val intent = Intent(holder.view.context, BookDetailActivity::class.java ).apply {
+                putExtra("itemIdKey", getBook(position).uid)
+            }
+            holder.view.context.startActivity(intent)
+
+            activity!!.overridePendingTransition(R.anim.translate_in_bottom, R.anim.translate_in_top)
+        }
     }
 
     // Returns total items in Adapter
